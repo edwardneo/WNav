@@ -1,6 +1,12 @@
+from vector import Vector
+
 class Vertex:
+    """A vertex that is at a position coordinate with a given mass."""
+
     def __init__(self, position, mass):
-        """A vertex that is at a position coordinate with a given mass."""
+        assert isinstance(position, Vector), 'Position is not vector'
+        assert isinstance(mass, int) or isinstance(mass, float), 'Mass is not number'
+
         self.pos = position
         self.mass = mass
     
