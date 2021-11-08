@@ -7,7 +7,7 @@ from vector import VectorOperations as vec
 class Body:
     """A physical body made of vertices and edges."""
 
-    def __init__(self, vertices, edges=[], color='b'):
+    def __init__(self, vertices, edges=[], color='b', time_step=1000):
         assert len(vertices) > 2, 'Body is not two dimensional'
         for vertex in vertices:
             assert isinstance(vertex, Vertex), 'Not a list of vertices'
@@ -27,7 +27,27 @@ class Body:
                          self.mass)
         
         self.moi = sum([vertex.mass * vec.abs(vec.sub(vertex.pos, self.cm.pos)) ** 0.5 for vertex in self.vertices])
+
+        self.ang_vel = 0
+
+        self.time_step = time_step
     
+    def step(self):
+        """Moves the body one frame forward"""
+
+        for vertex in self.vertices:
+            radial_axis = vec.sub(vertex.pos, self.cm.pos)
+            tan_unit = vec.perp(vec.unit(radial_axis))
+            velocity = self.ang_vel * abs(radial_axis)
+            movement = vec.mul_scalar(velocity * self.time_step, tan_unit)
+
+            vertex.move(movement)
+    
+    def spin(self, torque):
+        """Applies a torque for one frame"""
+
+        self.ang_vel += torque / self.moi * self.time_step
+
     def draw(self, console=False):
         """Draw the body in Matplotlib or print in console"""
 

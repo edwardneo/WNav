@@ -1,4 +1,5 @@
 from vector import Vector
+from vector import VectorOperations as vec
 
 class Vertex:
     """A vertex that is at a position coordinate with a given mass."""
@@ -9,6 +10,13 @@ class Vertex:
 
         self.pos = position
         self.mass = mass
+    
+    def move(self, v):
+        """Move vertex by vector v"""
+
+        assert isinstance(v, Vector)
+
+        self.pos = vec.add(self.pos, v)
     
     def __repr__(self):
         return f'Vertex({self.pos}, {self.mass})'

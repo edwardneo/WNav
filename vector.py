@@ -43,3 +43,15 @@ class VectorOperations:
         assert isinstance(v, Vector)
 
         return (v.x ** 2 + v.y ** 2) ** 0.5
+    
+    def perp(v):
+        """Rotate v counterclockwise by ninety degrees (v*i)"""
+
+        assert isinstance(v, Vector)
+
+        return Vector(-v.y, v.x)
+    
+    def unit(v):
+        """Find the vector in the same direction of v with magnitude 1 (v hat)"""
+
+        return VectorOperations.mul_scalar(1 / VectorOperations.abs(v), v)
