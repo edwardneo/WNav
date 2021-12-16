@@ -18,6 +18,13 @@ class Vertex:
 
         self.pos = vec.add(self.pos, v)
     
+    def set(self, v):
+        """Set vertex position to vector v"""
+
+        assert isinstance(v, Vector)
+
+        self.pos = v
+    
     def __repr__(self):
         return f'Vertex({self.pos}, {self.mass})'
     

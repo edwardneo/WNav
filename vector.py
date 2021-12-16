@@ -1,3 +1,5 @@
+import numpy as np
+
 class Vector:
     """A vector that takes in Cartesian coordinates"""
 
@@ -55,3 +57,10 @@ class VectorOperations:
         """Find the vector in the same direction of v with magnitude 1 (v hat)"""
 
         return VectorOperations.mul_scalar(1 / VectorOperations.abs(v), v)
+    
+    def rotate(v, theta):
+        """Rotate v counterclockwise by theta"""
+
+        assert isinstance(v, Vector)
+
+        return Vector(v.x * np.cos(theta) - v.y * np.sin(theta), v.x * np.sin(theta) + v.y * np.cos(theta))
